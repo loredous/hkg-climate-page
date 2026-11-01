@@ -25,7 +25,7 @@ case "$_p" in
     NEEV23.USA.*.260507) log "product $_p" ;;
     *)
         log "FAIL: product $_p is not a 2023 US Ioniq 5 on firmware 260507"
-        refuse "HKG Climate Page needs a 2023 US Ioniq 5 on firmware 260507. Update the head unit first." ;;
+        refuse "HKG Climate Page supports NEEV23 US firmware 260507 only. This firmware is not supported; do not downgrade to install it." ;;
 esac
 read_manifest || refuse "HKG Climate Page was not installed: the package is damaged."
 check_stock || refuse "HKG Climate Page was not installed: this head unit's split-screen app is not the stock file. Nothing was changed."

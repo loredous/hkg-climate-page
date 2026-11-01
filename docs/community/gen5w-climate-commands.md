@@ -29,7 +29,7 @@ sent by us during discovery.
 
 - Apps link the stock `automotive` library (`<uses-library android:name="automotive"
   android:required="false" />`) and get managers through
-  `com.hkmc.micom.VehicleInfoManager.getInstance(context).getService(...)`.
+  `com.hkmc.VehicleInfoManager.getInstance(context).getService(...)`.
 - `DATCManager` (climate): binder `com.hkmc.micom.datc`, interface `com.hkmc.datc.IDATCService`.
 - `USMManager` (seats, steering wheel, eco): binder `com.hkmc.micom.usm`, interface
   `com.hkmc.usm.IUSMService`.
