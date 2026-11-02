@@ -2,7 +2,7 @@
 # Build the signed app APK: compile core/src, link/src and app/src (against the stock-name stubs,
 # which are never packaged), dex them, package with the manifest, zipalign and sign (v1 only).
 # usage: tools/build-app.sh           writes build/app/hkgclimate.apk and prints its path
-# environment: VERSION_NAME (default 1.2.0), VERSION_CODE (default 6). aapt only fills these in
+# environment: VERSION_NAME (default 1.2.1), VERSION_CODE (default 7). aapt only fills these in
 # when the manifest has none; app/AndroidManifest.xml sets both, so keep the two in step.
 # The signing key is private/keys/hkgclimate.jks (alias hkgclimate), created on the first run with
 # a random password in private/keys/password. Keep the key: an update must be signed with it.
@@ -10,8 +10,8 @@ set -e
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 eval "$("$ROOT/tools/toolchain.sh" env)"
 cd "$ROOT"
-VERSION_NAME=${VERSION_NAME:-1.2.0}
-VERSION_CODE=${VERSION_CODE:-6}
+VERSION_NAME=${VERSION_NAME:-1.2.1}
+VERSION_CODE=${VERSION_CODE:-7}
 
 OUT=build/app
 rm -rf "$OUT" build/stubs

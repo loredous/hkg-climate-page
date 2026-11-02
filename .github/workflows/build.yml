@@ -1,4 +1,4 @@
-# Builds and tests the package, the kit and the combined USB zip on every push and pull request.
+# Builds and tests the package, the kit, the combined USB zip and the store zip on every push and pull request.
 #
 # Signing:
 # - Branches and pull requests: the APK is signed with a throwaway key made fresh on each run
@@ -6,8 +6,8 @@
 #   signed with the release key; they are for checking the build only.
 # - Tags v<version> (for example v1.0.0): the APK is signed with the release key from the
 #   repository secrets HKGCLIMATE_KEYSTORE_B64 (the JKS keystore, base64; alias hkgclimate) and
-#   HKGCLIMATE_KEYSTORE_PASSWORD, the tag must match the version in app/AndroidManifest.xml and
-#   package/NEMESIS.data, and the zips are attached to the GitHub release for the tag.
+#   HKGCLIMATE_KEYSTORE_PASSWORD, the tag must match the version in app/AndroidManifest.xml and the
+#   package-version in package/NEMESIS.data, and the zips are attached to the GitHub release for the tag.
 #
 # The package mock test needs the stock panel files (private/stock/260507), so it reports SKIP here.
 name: build
@@ -35,7 +35,7 @@ jobs:
         run: |
           v=${GITHUB_REF_NAME#v}
           grep -q "android:versionName=\"$v\"" app/AndroidManifest.xml || { echo "::error::app/AndroidManifest.xml versionName is not $v"; exit 1; }
-          grep -qx "version=$v" package/NEMESIS.data || { echo "::error::package/NEMESIS.data version is not $v"; exit 1; }
+          grep -qx "package-version=$v" package/NEMESIS.data || { echo "::error::package/NEMESIS.data package-version is not $v"; exit 1; }
 
       - uses: actions/setup-java@v4
         with:
@@ -98,6 +98,8 @@ jobs:
           tools/build-capture.sh
           tools/build-voicekit.sh
           sh tests/usb/run.sh
+          tools/build-store.sh
+          sh tests/store/run.sh
 
       - name: Remove the signing key
         if: always()

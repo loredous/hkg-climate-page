@@ -484,8 +484,8 @@ check "self-test: the stock-setter check flags another class calling DatcClimate
     only_flags "$ST/stocksend/code.txt" 'hkgclimate.app.Other.go:' "$STOCK_FROM" $STOCK_REFS
 
 check "package is hkgclimate.app" grep -q "^package: name='hkgclimate.app'" "$TMP/badging"
-check "versionName is 1.2.0" grep -q "versionName='1.2.0'" "$TMP/badging"
-check "versionCode is 6" grep -q "versionCode='6'" "$TMP/badging"
+check "versionName is 1.2.1" grep -q "versionName='1.2.1'" "$TMP/badging"
+check "versionCode is 7" grep -q "versionCode='7'" "$TMP/badging"
 # the approval flow is gone: no commander class, no dialog, no preference key
 check "dex has no TestModeCommander class" sh -c "! grep -q 'Lhkgclimate/app/TestModeCommander;' $TMP/dex.txt"
 # the one dialog is the settings screen's "Delete preset?" confirm; nothing else shows one

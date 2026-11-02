@@ -1,11 +1,17 @@
 [nemesis]
+version=1.1
 id=hkg.climate.page
 name=HKG Climate Page
-version=1.2.0
+type=application
+package-version=1.2.1
+short-desc="Climate page on the split screen: seats, presets, outside temp."
+detailed-desc="Adds a climate page to the right split screen: one-tap heated and ventilated seats, the outside temperature and up to six presets for the seats, steering wheel heat and cabin climate. 2023 US Ioniq 5 on firmware 260507 only."
+os="NEEV23.USA.*.260507"
+models="neev23_us"
+depends=""
 preinstall=scripts/pre.sh
 postinstall=scripts/post.sh
 preuninstall=scripts/preun.sh
-postuninstall=N/A
 
 [app.1]
 kind=apk

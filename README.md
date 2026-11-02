@@ -18,6 +18,8 @@ no longer crashes, every editor dropdown scrolls, a preset sets the driver and p
 temperatures separately, up to six presets, the preset in effect is highlighted, a redesigned
 panel (gear button, seat icons that show the mode, swap and off buttons), and presets and
 settings are kept across updates.** Install from the GitHub release (`hkg-climate-usb.zip`).
+v1.2.1 is 1.2.0 with the package descriptor in the NEMESIS Package Store format (1.1) and a store
+zip (`hkg-climate-page-store.zip`); the app and the page are unchanged.
 Earlier releases: v1.0.0 (seat buttons, outside temperature and presets of the seats).
 The owner's on-car checklist is
 [docs/testing/2026-10-31-version-1-2.md](docs/testing/2026-10-31-version-1-2.md). Earlier checklists:
@@ -66,6 +68,12 @@ Then:
    update when the head unit restarts with the stick in (see "Updating"), the kit from NEMESIS
    Manager's "Run USB NEMESIS.sh")
 
+`tools/build-store.sh` writes `dist/hkg-climate-page-store.zip`, the bare package for the
+[NEMESIS Package Store](https://xwtk.cloud/services/nemesis#package-store) (`NEMESIS.data` at the
+root, descriptor format 1.1): the same bytes as `packages/hkg.climate.page.zip` inside the install
+zip. Upload it at [portal.xwtk.cloud/nemesis](https://portal.xwtk.cloud/nemesis/) (a new version
+needs a higher `package-version`), or install it on the unit with `nemesis install <zip>`.
+
 `tools/build-capture.sh` writes `dist/hkg-climate-capture.zip`, a read-only tool that records the
 Android log on a USB stick while the stock climate controls are used (checklist:
 [docs/testing/2026-10-31-climate-capture.md](docs/testing/2026-10-31-climate-capture.md)).
@@ -82,10 +90,11 @@ zips as a build artifact. The package mock test needs the stock panel files, so 
   can't update an install signed with the release key. Use them to check the build only.
 - Tags `v<version>` (for example `v1.0.0`) are signed with the release key from the repository
   secrets `HKGCLIMATE_KEYSTORE_B64` (the keystore, base64; alias `hkgclimate`) and
-  `HKGCLIMATE_KEYSTORE_PASSWORD`. The tag must match the version in `app/AndroidManifest.xml`
-  and `package/NEMESIS.data`, and the zips are attached to the GitHub release for the tag.
+  `HKGCLIMATE_KEYSTORE_PASSWORD`. The tag must match `versionName` in `app/AndroidManifest.xml`
+  and `package-version` in `package/NEMESIS.data`, and the zips are attached to the GitHub
+  release for the tag.
 
-To release: set the version in both files, commit, then `git tag v<version>` and
+To release: set the version in both files (and `versionCode` one higher), commit, then `git tag v<version>` and
 `git push origin v<version>`. To store the key in the secrets:
 
     base64 -w0 private/keys/hkgclimate.jks | gh secret set HKGCLIMATE_KEYSTORE_B64
